@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Kanban Board</title>
+    
+    <!-- bootstrap css -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    
+    <!-- local css -->
+    <link href="static/css/kanban.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-dark bg-dark sticky-top">
+        <a class="navbar-brand" href="#">Kanban Board</a>
+      </nav>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %}
+          {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ message }}
+      </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+    <div id="board">
+      <div id="todo" class="section border border-warning rounded">
+        <h3>To Do</h3>
+        {% for task in todo_tasks %}
+
+        <div id="c{{ task.id }}" class="card text-center">
+          <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
+          <div class="card-header">
+              <h4>{{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            {% if task.completer != None %}
+            <p class="text-muted"><small>
+              Completed by: {{ task.completer}} at {{ task.complete_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% elif task.owner != None %}
+            <p class="text-muted"><small>
+              owned by: {{ task.owner}} at {{ task.owned_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% endif %}
+            <p class="card-text">{{ task.description }}</p>
+          </div>
+          <div class="card-footer text-muted">
+            Active for {{ task.days_active() }} days
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div id="doing" class="section border border-secondary rounded">
+        <h3>Doing</h3>
+        {% for task in doing_tasks %}
+                <div id="c{{ task.id }}" class="card text-center">
+          <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
+          <div class="card-header">
+              <h4>{{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            {% if task.completer != None %}
+            <p class="text-muted"><small>
+              Completed by: {{ task.completer}} on {{ task.complete_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% elif task.owner != None %}
+            <p class="text-muted"><small>
+              owned by: {{ task.owner}} on {{ task.owned_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% endif %}
+            <p class="card-text">{{ task.description }}</p>
+          </div>
+          <div class="card-footer text-muted">
+            Active for {{ task.days_active() }} days
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div id="done" class="section border border-success rounded">
+        <h3>Done</h3>
+        {% for task in done_tasks %}
+        
+        <div id="c{{ task.id }}" class="card text-center">
+          <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
+          <div class="card-header">
+              <h4>{{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            {% if task.completer != None %}
+            <p class="text-muted"><small>
+              Completed by: {{ task.completer}} on {{ task.complete_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% elif task.owner != None %}
+            <p class="text-muted"><small>
+              owned by: {{ task.owner}} on {{ task.owned_date.strftime('%d/%m/%Y') }}
+            </small></p>
+            {% endif %}
+            <p class="card-text">{{ task.description }}</p>
+          </div>
+          <div class="card-footer text-muted">
+            Active for {{ task.days_active() }} days
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+    
+    <!-- local JS -->
+    <script src="static/js/kanban.js"></script>
+</body>
+</html>
