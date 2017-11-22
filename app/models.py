@@ -9,7 +9,9 @@ class Project(db.Model):
     description = db.Column(db.Text)
     creator = db.Column(db.String(64))
     creation_date = db.Column(db.DateTime)
-    
+
+    def __repr__(self):
+        return self.name
 
 
 class Task(db.Model):
@@ -23,6 +25,9 @@ class Task(db.Model):
     completer = db.Column(db.String(64))
     complete_date = db.Column(db.DateTime)
     
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
+    project = db.relationship('Project', backref=db.backref('tasks', lazy='dynamic'))
+
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     status = db.relationship('Status', backref=db.backref('tasks', lazy='dynamic'))
     

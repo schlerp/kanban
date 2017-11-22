@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% if project %}
+{% block title %}Kanban - {{ project }}{% endblock %}
+{% endif %}
+
 {% block content %}
     <div id="board">
         <div id="todo" class="section border border-warning rounded">
@@ -86,5 +90,5 @@
     </div>
     
     <!-- local JS -->
-    <script src="static/js/kanban.js"></script>
+    <script src="/static/js/kanban.js"></script>
 {% endblock %}

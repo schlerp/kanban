@@ -6,7 +6,7 @@ from flask import render_template, request, flash, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 
 from app import app, db, login_manager
-from app.models import Task, Status, User
+from app.models import Task, Status, User, Project
 from app.forms import LoginForm
 
 @app.route('/')
@@ -29,6 +29,30 @@ def kanban():
     context = {'todo_tasks': todo,
                'doing_tasks': doing,
                'done_tasks': done}
+    
+    return render_template('kanban.html', **context)
+
+@app.route('/kanban/proj/<project>')
+def kanban_project(project):
+    # if user isnt logged in redirect them to login page
+    if g.user is None:
+        return redirect(url_for('login'))
+    
+    status_todo = Status.query.filter_by(name='todo').first()
+    todo = Task.query.filter_by(status=status_todo, project_id=project)
+    
+    status_doing = Status.query.filter_by(name='doing').first()
+    doing = Task.query.filter_by(status=status_doing, project_id=project)
+    
+    status_done = Status.query.filter_by(name='done').first()
+    done = Task.query.filter_by(status=status_done, project_id=project)
+   
+    project = Project.query.filter_by(id=project).first()
+
+    context = {'todo_tasks': todo,
+               'doing_tasks': doing,
+               'done_tasks': done, 
+               'project': project}
     
     return render_template('kanban.html', **context)
 

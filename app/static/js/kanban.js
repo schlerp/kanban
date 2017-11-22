@@ -89,16 +89,9 @@ board.ondrop = function(e) {
                 var response = postAjax('/update_status', 
                                         {'taskid': card.id, 'statusname': section.id}, 
                                         function(data){ console.log(data); })
-                console.log('derp');
-                console.log(response);
-                console.log('derp');
-                window.location.reload(true);
-                //if (response == 200) {
-                    //window.location.reload(true);
-                    //setTimeout(function(){
-                      //window.location.reload();
-                    //});
-                //}
+                setTimeout(function() {
+                    window.location.reload(true);
+                }, 100);
             }
         } else {
             alert('couldn\'t find card #' + id);
