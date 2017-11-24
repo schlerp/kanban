@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
-{% if project %}
-{% block title %}Kanban - {{ project }}{% endblock %}
-{% endif %}
+{% block navbar %}
+  {% if project %}
+    <span class="navbar navbar-dark bg-dark navbar-text">Project: {{ project }}</span>
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
 
 {% block content %}
     <div id="board">
@@ -13,9 +17,10 @@
             <div id="c{{ task.id }}" class="card text-center">
                 <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
                 <div class="card-header">
-                    <h4>{{ task.title }}</h4>
+                    <h6>{{ task.title }}</h6>
                 </div>
                 <div class="card-body">
+                    <p class="card-text">{{ task.description }}</p>
                     {% if task.completer != None %}
                     <p class="text-muted"><small>
                         Completed by: {{ task.completer}} at {{ task.complete_date.strftime('%d/%m/%Y') }}
@@ -25,7 +30,6 @@
                         owned by: {{ task.owner}} at {{ task.owned_date.strftime('%d/%m/%Y') }}
                     </small></p>
                     {% endif %}
-                    <p class="card-text">{{ task.description }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     Active for {{ task.days_active() }} days
@@ -39,9 +43,10 @@
                 <div id="c{{ task.id }}" class="card text-center">
                 <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
                 <div class="card-header">
-                    <h4>{{ task.title }}</h4>
+                    <h6>{{ task.title }}</h6>
                 </div>
                 <div class="card-body">
+                    <p class="card-text">{{ task.description }}</p>
                     {% if task.completer != None %}
                     <p class="text-muted"><small>
                         Completed by: {{ task.completer}} on {{ task.complete_date.strftime('%d/%m/%Y') }}
@@ -51,7 +56,6 @@
                         owned by: {{ task.owner}} on {{ task.owned_date.strftime('%d/%m/%Y') }}
                     </small></p>
                     {% endif %}
-                    <p class="card-text">{{ task.description }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     Active for {{ task.days_active() }} days
@@ -66,9 +70,10 @@
             <div id="c{{ task.id }}" class="card text-center">
                 <input type="hidden" name="task_id" class="task-id" value="{{ task.id }}">
                 <div class="card-header">
-                    <h4>{{ task.title }}</h4>
+                    <h6>{{ task.title }}</h6>
                 </div>
                 <div class="card-body">
+                    <p class="card-text">{{ task.description }}</p>
                     {% if task.completer != None %}
                     <p class="text-muted"><small>
                         Completed by: {{ task.completer}} on {{ task.complete_date.strftime('%d/%m/%Y') }}
@@ -78,7 +83,6 @@
                         owned by: {{ task.owner}} on {{ task.owned_date.strftime('%d/%m/%Y') }}
                     </small></p>
                     {% endif %}
-                    <p class="card-text">{{ task.description }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     Active for {{ task.days_active() }} days
