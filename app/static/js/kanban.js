@@ -91,7 +91,7 @@ board.ondrop = function(e) {
                                         function(data){ console.log(data); })
                 setTimeout(function() {
                     window.location.reload(true);
-                }, 100);
+                }, 500);
             }
         } else {
             alert('couldn\'t find card #' + id);

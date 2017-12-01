@@ -95,3 +95,6 @@ class User(db.Model):
     
     def is_authenticated(self):
         return True
+
+    def __repr__(self):
+        return self.username

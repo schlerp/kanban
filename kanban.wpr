@@ -26,7 +26,4 @@ proj.directory-list = [{'dirloc': loc('app'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.launch-config = {loc('run.py'): ('project',
-                                      (u'host=0.0.0.0 port=8080 ',
-                                       ''))}
 proj.main-file = loc('run.py')

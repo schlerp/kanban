@@ -18,9 +18,10 @@
   </head>
   <body>
     <div class="container-fluid">
-      <nav class="navbar navbar-dark bg-dark sticky-top">
+      <nav class="navbar navbar-dark bg-dark">
 	      <a class="navbar-brand" href="#">{% block title %}Kanban Board{% endblock %}</a>
         {% block navbar %}{% endblock %}
+	<span class="navbar navbar-dark bg-dark navbar-text text-small">User: {{ g.user }}</span>
       </nav>
       {% with messages = get_flashed_messages(with_categories=true) %}
         <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->

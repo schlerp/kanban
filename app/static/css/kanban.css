@@ -7,10 +7,17 @@
 
 .section {
     display: table-cell;
-    margin: 0;
-    padding: 5px;
     width: 33%;
 }
+
+.section > h4 {
+    padding: 10px;
+}
+
+.card {
+    margin: 10px;
+}
+
 
 .section.droppable {
     border: 3px dashed #666;
@@ -19,8 +26,7 @@
 .section > h1 {
     margin: 0;
     border-bottom: 1px solid #999;
-    padding: 0;
+    padding: 10;
     font-size: 12pt;
     text-align: center;
 }
-
